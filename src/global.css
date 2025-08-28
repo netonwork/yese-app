@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+/* 导入主题样式 */
+@import './styles/themes.css';
+
+/* 默认深色模式 */
+:root {
+  color-scheme: dark;
+}
+
+/* biome-ignore lint/nursery/noUnknownAtRule: Tailwind CSS */
+@theme {
+	--font-sans: Inter, sans-serif;
+}
+
+/* 工具类 */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
