@@ -34,7 +34,7 @@ interface SearchResult {
 const mockSearchData: Video[] = Array.from({ length: 100 }, (_, i) => ({
   id: `search-${i + 1}`,
   title: `搜索结果视频 ${i + 1} - 包含关键词的精彩内容`,
-  thumbnail: `https://picsum.photos/400/225?random=${i + 600}`,
+  thumbnail: `https://api.yviii.com/img/meitu?${i + 600}`,
   duration: `00:${String(Math.floor(Math.random() * 60) + 10).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`,
   viewCount: Math.floor(Math.random() * 100000) + 1000,
   category: ['动作片', '爱情片', '喜剧片', '惊悚片', '科幻片'][Math.floor(Math.random() * 5)],
