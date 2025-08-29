@@ -1,50 +1,22 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ArrowLeft, Crown, Check, Shield, Users, Headphones, Play, Zap, Award, Gift, MessageCircle, Download } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { getVipPlans, getVipFeatures } from '@/api/vip'
+import type { VipPlan, VipFeature } from '@/types/vip'
 
-interface VipPlan {
-  id: string
-  name: string
-  price: number
-  originalPrice?: number
-  duration: string
+// 图标映射
+const iconMap = {
+  Play,
+  Zap,
+  Shield,
+  Crown,
+  Headphones,
+  Gift,
+  Award,
+  Download,
+  Users,
+  Check
 }
-
-const vipPlans: VipPlan[] = [
-  {
-    id: 'monthly',
-    name: '月卡会员',
-    price: 39,
-    originalPrice: 59,
-    duration: '30天'
-  },
-  {
-    id: 'quarterly',
-    name: '季卡会员',
-    price: 99,
-    originalPrice: 177,
-    duration: '90天'
-  },
-  {
-    id: 'yearly',
-    name: '年卡会员',
-    price: 299,
-    originalPrice: 708,
-    duration: '365天'
-  }
-]
-
-// 统一的VIP权益
-const vipFeatures = [
-  { icon: Play, text: '无限观看' },
-  { icon: Zap, text: '超清画质' },
-  { icon: Shield, text: '无广告' },
-  { icon: Crown, text: '专属标识' },
-  { icon: Headphones, text: '优先客服' },
-  { icon: Gift, text: '赠送花币' },
-  { icon: Award, text: '会员活动' },
-  { icon: Download, text: '离线下载' }
-]
 
 
 
@@ -52,6 +24,31 @@ export const VipPage = () => {
   const navigate = useNavigate()
   const [selectedPlan, setSelectedPlan] = useState('quarterly')
   const [loading, setLoading] = useState(false)
+  const [vipPlans, setVipPlans] = useState<VipPlan[]>([])
+  const [vipFeatures, setVipFeatures] = useState<VipFeature[]>([])
+  const [dataLoading, setDataLoading] = useState(true)
+
+  // 获取VIP数据
+  useEffect(() => {
+    const fetchVipData = async () => {
+      try {
+        setDataLoading(true)
+        const [plansResponse, featuresResponse] = await Promise.all([
+          getVipPlans(),
+          getVipFeatures()
+        ])
+        
+        setVipPlans(plansResponse.plans)
+        setVipFeatures(featuresResponse.features)
+      } catch (error) {
+        console.error('获取VIP数据失败:', error)
+      } finally {
+        setDataLoading(false)
+      }
+    }
+
+    fetchVipData()
+  }, [])
 
   const handlePurchase = async (planId: string) => {
     setLoading(true)
@@ -112,7 +109,30 @@ export const VipPage = () => {
         <div className="mb-8">
           <h3 className="text-xl font-bold text-white text-center mb-6">选择套餐</h3>
           <div className="space-y-3 max-w-2xl mx-auto">
-            {vipPlans.map((plan) => (
+            {dataLoading ? (
+              // 加载状态
+              Array.from({ length: 3 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 border-2 border-slate-700/50"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-full bg-slate-700 animate-pulse"></div>
+                      <div>
+                        <div className="h-5 w-20 bg-slate-700 rounded animate-pulse mb-2"></div>
+                        <div className="h-4 w-12 bg-slate-700 rounded animate-pulse"></div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="h-6 w-16 bg-slate-700 rounded animate-pulse mb-2"></div>
+                      <div className="h-4 w-12 bg-slate-700 rounded animate-pulse"></div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              vipPlans.map((plan) => (
               <div
                 key={plan.id}
                 onClick={() => setSelectedPlan(plan.id)}
@@ -126,7 +146,7 @@ export const VipPage = () => {
                 <div className="flex items-center justify-between">
                   {/* 套餐信息 */}
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                    <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${plan.color} flex items-center justify-center`}>
                       <Crown className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -162,7 +182,8 @@ export const VipPage = () => {
                   )}
                 </div>
               </div>
-            ))}
+            ))
+            )}
           </div>
         </div>
 
@@ -170,16 +191,30 @@ export const VipPage = () => {
         <div className="mb-8">
           <h3 className="text-xl font-bold text-white text-center mb-6">VIP权益</h3>
           <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 max-w-2xl mx-auto">
-            <div className="grid grid-cols-4 gap-4">
-              {vipFeatures.map((feature, index) => (
-                <div key={index} className="text-center">
-                  <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-                    <feature.icon className="w-6 h-6 text-white" />
+            {dataLoading ? (
+              <div className="grid grid-cols-4 gap-4">
+                {Array.from({ length: 8 }).map((_, index) => (
+                  <div key={index} className="text-center">
+                    <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-slate-700 animate-pulse"></div>
+                    <div className="h-4 bg-slate-700 rounded animate-pulse"></div>
                   </div>
-                  <span className="text-slate-300 text-sm">{feature.text}</span>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-4 gap-4">
+                {vipFeatures.map((feature) => {
+                  const IconComponent = iconMap[feature.icon as keyof typeof iconMap]
+                  return (
+                    <div key={feature.id} className="text-center">
+                      <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                        {IconComponent && <IconComponent className="w-6 h-6 text-white" />}
+                      </div>
+                      <span className="text-slate-300 text-sm">{feature.title}</span>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
           </div>
         </div>
 

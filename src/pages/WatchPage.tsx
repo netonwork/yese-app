@@ -234,11 +234,14 @@ export const WatchPage = () => {
                 className="flex items-center gap-3 cursor-pointer"
                 onClick={() => navigate('/')}
               >
-                <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                <div 
+                  className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center cursor-pointer"
+                  onClick={() => navigate('/')}
+                >
                   <Play className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">夜色视频</h1>
+                  <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100 cursor-pointer" onClick={() => navigate('/')}>夜色视频</h1>
                   <p className="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">高品质视频平台</p>
                 </div>
               </div>

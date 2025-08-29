@@ -9,12 +9,15 @@ import {App} from './App'
 const queryClient = new QueryClient()
 
 async function enableMocking() {
-	// TODO: uncomment this line
-	// if (process.env.NODE_ENV !== 'development') {
-	//   return
-	// }
+	// 只在开发环境且启用MSW时才加载mock
+	if (import.meta.env.PROD || import.meta.env.VITE_ENABLE_MSW !== 'true') {
+		return
+	}
+	
 	const {worker} = await import('./mocks/browser')
-	return worker.start()
+	return worker.start({
+		onUnhandledRequest: 'warn', // 对未处理的请求发出警告
+	})
 }
 
 const container = document.querySelector('#root')

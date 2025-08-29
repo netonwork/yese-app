@@ -307,6 +307,8 @@ export const VideoListPage = () => {
             <VideoGrid
               videos={getCurrentPageVideos()}
               loading={loading}
+              gridCols="grid-cols-1"
+              size="medium"
             />
 
             {/* 分页组件 */}

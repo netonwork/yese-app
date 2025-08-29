@@ -1,58 +1,45 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect, useMemo } from 'react'
 import { 
   Search, 
   Play, 
   Menu
 } from 'lucide-react'
-import { MobileSidebar } from './MobileSidebar'
-import { VipAnnouncements } from './VipAnnouncements'
-import { AppInstallBanner } from './AppInstallBanner'
-import { VideoGrid } from './VideoGrid'
-import { Pagination } from './Pagination'
-import { UserMenu } from './UserMenu'
-import { Footer } from './Footer'
-import { FullScreenSearch } from './FullScreenSearch'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { MobileSidebar } from '@/components/MobileSidebar'
+import { VideoGrid } from '@/components/VideoGrid'
+import { Pagination } from '@/components/Pagination'
+import { UserMenu } from '@/components/UserMenu'
+import { Footer } from '@/components/Footer'
+import { FullScreenSearch } from '@/components/FullScreenSearch'
 import { useCategories } from '@/hooks/useCategories'
 
-// 模拟数据类型
-interface Video {
-  id: string
-  title: string
-  thumbnail: string
-  duration: string
-  viewCount: number
-  rating: number
-  category: string
-  actors: string[]
-  tags: string[]
-  createdAt: string
-  badge?: 'hot' | 'exclusive'
+// 模拟收藏视频数据
+const generateMockFavorites = (count: number = 20) => {
+  const categories = ['动作片', '爱情片', '喜剧片', '科幻片', '恐怖片']
+  const actors = ['演员1', '演员2', '演员3', '演员4', '演员5']
+  
+  return Array.from({ length: count }, (_, i) => {
+    const badgeTypes: ('hot' | 'exclusive')[] = ['hot', 'exclusive']
+    const randomBadge = Math.random() < 0.4 ? badgeTypes[Math.floor(Math.random() * badgeTypes.length)] : undefined
+    
+    return {
+      id: `favorite-${i + 1}`,
+      title: `我收藏的精彩视频 ${i + 1} - 这是一个很长的标题用来测试显示效果`,
+      thumbnail: `https://picsum.photos/400/225?random=${i + 100}`,
+      duration: `00:${String(Math.floor(Math.random() * 60) + 10).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`,
+      viewCount: Math.floor(Math.random() * 100000) + 1000,
+      rating: Math.round((Math.random() * 2 + 3) * 10) / 10,
+      category: categories[Math.floor(Math.random() * categories.length)] || '动作片',
+      actors: Math.random() > 0.3 ? [`演员${i + 1}`, `演员${i + 2}`] : [], // 30%的视频没有演员信息
+      tags: ['高清', '热门', '推荐'].slice(0, Math.floor(Math.random() * 3) + 1),
+      createdAt: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
+      favoriteTime: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
+      ...(randomBadge && { badge: randomBadge })
+    }
+  })
 }
 
-
-
-const mockVideos: Video[] = Array.from({ length: 48 }, (_, i) => {
-  // 随机生成单个角标
-  const badgeTypes: ('hot' | 'exclusive')[] = ['hot', 'exclusive']
-  const randomBadge = Math.random() < 0.4 ? badgeTypes[Math.floor(Math.random() * badgeTypes.length)] : undefined
-  
-  return {
-    id: `video-${i + 1}`,
-    title: `精彩视频标题 ${i + 1} - 这是一个很长的标题用来测试显示效果`,
-    thumbnail: `https://picsum.photos/400/225?random=${i + 1}`,
-    duration: `00:${String(Math.floor(Math.random() * 60) + 10).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`,
-    viewCount: Math.floor(Math.random() * 100000) + 1000,
-    rating: Math.round((Math.random() * 2 + 3) * 10) / 10,
-    category: ['动作片', '爱情片', '喜剧片', '惊悚片', '科幻片'][Math.floor(Math.random() * 5)] || '动作片',
-    actors: Math.random() > 0.3 ? [`演员${i + 1}`, `演员${i + 2}`] : [], // 30%的视频没有演员信息
-    tags: ['高清', '热门', '推荐'].slice(0, Math.floor(Math.random() * 3) + 1),
-    createdAt: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
-    ...(randomBadge && { badge: randomBadge })
-  }
-})
-
-export const HomePage = () => {
+export const MyFavoritesPage = () => {
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('home')
@@ -75,43 +62,31 @@ export const HomePage = () => {
   // 获取分类数据
   const { categories } = useCategories()
   
-
-  
-
-  
-  const videosPerPage = 20
-  const totalVideos = mockVideos.length
+  const videosPerPage = 12 // 手机2列，PC3列，每页12个
+  const totalVideos = 48 // 模拟总数
   const totalPages = Math.ceil(totalVideos / videosPerPage)
 
-  // 获取当前页的视频
-  const getCurrentPageVideos = () => {
+  // 生成模拟收藏视频数据
+  const mockFavoriteVideos = useMemo(() => {
     const startIndex = (currentPage - 1) * videosPerPage
-    const endIndex = startIndex + videosPerPage
-    let filteredVideos = mockVideos
-    
-    if (selectedCategory !== 'home') {
-      filteredVideos = mockVideos.filter(video => 
-        video.category.includes(selectedCategory)
-      )
-    }
-    
-    return filteredVideos.slice(startIndex, endIndex)
-  }
+    return generateMockFavorites(videosPerPage).map((video, index) => ({
+      ...video,
+      id: `favorite-${startIndex + index + 1}`,
+    }))
+  }, [currentPage, videosPerPage])
 
-  const [videos, setVideos] = useState<Video[]>(getCurrentPageVideos())
+  const [videos, setVideos] = useState(mockFavoriteVideos)
 
   // 模拟数据加载
   useEffect(() => {
     setLoading(true)
     const timer = setTimeout(() => {
-      setVideos(getCurrentPageVideos())
+      setVideos(mockFavoriteVideos)
       setLoading(false)
     }, 300)
 
     return () => clearTimeout(timer)
-  }, [selectedCategory, currentPage])
-
-
+  }, [mockFavoriteVideos])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
@@ -145,7 +120,7 @@ export const HomePage = () => {
             <div className="hidden lg:block flex-1 max-w-2xl mx-8">
               <button
                 onClick={() => {
-                  console.log('HomePage: 搜索按钮被点击，设置 isSearchOpen 为 true')
+                  console.log('MyFavoritesPage: 搜索按钮被点击，设置 isSearchOpen 为 true')
                   setIsSearchOpen(true)
                 }}
                 className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl bg-slate-100/50 dark:bg-slate-800/50 border border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 text-left"
@@ -190,13 +165,12 @@ export const HomePage = () => {
                     <button
                       key={category.id}
                       onClick={() => {
-                        console.log('HomePage 桌面端分类按钮:', category.name, category.id)
+                        console.log('MyFavoritesPage 桌面端分类按钮:', category.name, category.id)
                         if (category.id === 'home') {
-                          // 在首页点击首页，更新选中状态
-                          setSelectedCategory(category.id)
-                          setCurrentPage(1)
+                          // 点击首页，导航到首页
+                          navigate('/')
                         } else {
-                          // 在首页点击其他分类，导航到分类页面
+                          // 点击其他分类，导航到分类页面
                           navigate(`/category/${category.id}`)
                         }
                       }}
@@ -230,27 +204,27 @@ export const HomePage = () => {
             </div>
           </aside>
 
-
-
           {/* 右侧主内容区域 */}
           <main className="flex-1 min-w-0">
             
-            {/* 顶部内容区域 */}
-            <div className="space-y-4 mb-6">
-              {/* 安装APP横幅 */}
-              <AppInstallBanner />
-
-              {/* VIP购买公告 */}
-              <VipAnnouncements />
+            {/* 页面标题 */}
+            <div className="mb-6">
+              <div className="flex items-baseline gap-3">
+                <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-slate-100">
+                  我的收藏
+                </h2>
+                <p className="text-sm md:text-base text-slate-600 dark:text-slate-300">
+                  个人收藏合集
+                </p>
+              </div>
             </div>
 
-                                {/* 视频网格 */}
-                    <VideoGrid
-                      videos={videos}
-                      loading={loading}
-                      size="medium"
-                      gridCols="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-                    />
+            {/* 视频网格 */}
+            <VideoGrid
+              videos={videos}
+              loading={loading}
+              gridCols="grid-cols-2 lg:grid-cols-3"
+            />
 
             {/* 分页组件 */}
             <Pagination
@@ -269,13 +243,12 @@ export const HomePage = () => {
         categories={categories}
         selectedCategory={selectedCategory}
         onCategorySelect={(categoryId) => {
-          console.log('HomePage: 分类选择:', categoryId)
+          console.log('MyFavoritesPage: 分类选择:', categoryId)
           if (categoryId === 'home') {
-            // 在首页点击首页，保持当前状态
-            setSelectedCategory(categoryId)
-            setCurrentPage(1)
+            // 点击首页，导航到首页
+            navigate('/')
           } else {
-            // 在首页点击其他分类，导航到分类页面
+            // 点击其他分类，导航到分类页面
             navigate(`/category/${categoryId}`)
           }
         }}
@@ -296,7 +269,6 @@ export const HomePage = () => {
         }}
         initialQuery={searchQuery}
       />
-
 
     </div>
   )

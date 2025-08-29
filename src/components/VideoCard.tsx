@@ -79,7 +79,7 @@ export const VideoCard = ({ video, onClick, size = 'medium' }: VideoCardProps) =
           aspectRatio: 'aspect-[4/3]', // 4:3 比例
           playButton: 'w-12 h-12',
           playIcon: 'w-6 h-6',
-          duration: 'bottom-2 right-2 px-1.5 py-0.5 text-xs',
+          duration: 'bottom-2 right-2 px-1 py-0.5 text-xs',
           title: 'text-sm leading-5 mb-2 md:min-h-[2.5rem]',
           meta: 'text-xs'
         }
@@ -89,7 +89,7 @@ export const VideoCard = ({ video, onClick, size = 'medium' }: VideoCardProps) =
           aspectRatio: 'aspect-video', // 16:9 比例
           playButton: 'w-20 h-20',
           playIcon: 'w-10 h-10',
-          duration: 'bottom-4 right-4 px-3 py-1.5 text-base',
+          duration: 'bottom-4 right-4 px-2 py-1 text-xs',
           title: 'text-xl leading-7 mb-4 md:min-h-[3.5rem]',
           meta: 'text-base'
         }
@@ -99,7 +99,7 @@ export const VideoCard = ({ video, onClick, size = 'medium' }: VideoCardProps) =
           aspectRatio: 'aspect-video', // 16:9 比例
           playButton: 'w-16 h-16',
           playIcon: 'w-8 h-8',
-          duration: 'bottom-3 right-3 px-2 py-1 text-sm',
+          duration: 'bottom-3 right-3 px-1.5 py-0.5 text-xs',
           title: 'text-lg leading-6 mb-3 md:min-h-[3rem]',
           meta: 'text-sm'
         }

@@ -15,15 +15,17 @@ interface VideoGridProps {
   loading?: boolean
   onVideoClick?: (video: Video) => void
   className?: string
+  gridCols?: string
+  size?: 'small' | 'medium' | 'large'
 }
 
-export const VideoGrid = ({ videos, loading = false, onVideoClick, className = '' }: VideoGridProps) => {
+export const VideoGrid = ({ videos, loading = false, onVideoClick, className = '', gridCols = 'grid-cols-2 lg:grid-cols-3', size = 'small' }: VideoGridProps) => {
   if (loading) {
     return (
-      <div className={`grid grid-cols-1 md:grid-cols-3 gap-8 ${className}`}>
+      <div className={`grid ${gridCols} gap-4 lg:gap-6 ${className}`}>
         {Array.from({ length: 12 }).map((_, i) => (
           <div key={i} className="animate-pulse">
-            <div className="aspect-video bg-slate-200 dark:bg-slate-700 rounded-xl mb-4"></div>
+            <div className={`${size === 'small' ? 'aspect-[4/3]' : 'aspect-video'} bg-slate-200 dark:bg-slate-700 rounded-xl mb-4`}></div>
             <div className="h-5 bg-slate-200 dark:bg-slate-700 rounded mb-2"></div>
             <div className="h-5 bg-slate-200 dark:bg-slate-700 rounded mb-3 w-4/5"></div>
             <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-2/3"></div>
@@ -34,11 +36,12 @@ export const VideoGrid = ({ videos, loading = false, onVideoClick, className = '
   }
 
   return (
-    <div className={`grid grid-cols-1 md:grid-cols-3 gap-8 ${className}`}>
+    <div className={`grid ${gridCols} gap-4 lg:gap-6 ${className}`}>
       {videos.map((video) => (
         <VideoCard
           key={video.id}
           video={video}
+          size={size}
           {...(onVideoClick && { onClick: () => onVideoClick(video) })}
         />
       ))}

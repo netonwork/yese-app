@@ -185,7 +185,7 @@ export const UserMenu = ({ isLoggedIn, user, onLogin, onLogout }: UserMenuProps)
               <a href="/chat" className="flex items-center justify-between px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
                 <div className="flex items-center gap-3">
                   <MessageSquare className="w-5 h-5" />
-                  <span>一起扯蛋</span>
+                  <span>联系客服</span>
                 </div>
                 <span className="text-xs bg-red-500 text-white px-1.5 py-0.5 rounded">New</span>
               </a>
@@ -336,11 +336,11 @@ export const UserMenu = ({ isLoggedIn, user, onLogin, onLogout }: UserMenuProps)
                   <span>分享赚花币</span>
                 </a>
                 
-                {/* 一起扯蛋 */}
+                {/* 联系客服 */}
                 <a href="/chat" className="flex items-center justify-between px-4 py-3 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                   <div className="flex items-center gap-3">
                     <MessageSquare className="w-5 h-5" />
-                    <span>一起扯蛋</span>
+                    <span>联系客服</span>
                   </div>
                   <span className="text-xs bg-red-500 text-white px-1.5 py-0.5 rounded">New</span>
                 </a>

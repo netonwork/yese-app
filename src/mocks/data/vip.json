@@ -1,0 +1,141 @@
+{
+  "plans": [
+    {
+      "id": "monthly",
+      "name": "月卡会员",
+      "price": 39,
+      "originalPrice": 59,
+      "duration": "30天",
+      "durationDays": 30,
+      "color": "from-blue-500 to-cyan-500",
+      "features": [
+        "无限观看全站视频",
+        "高清1080P画质",
+        "无广告纯净体验",
+        "专属会员标识",
+        "优先客服支持"
+      ],
+      "isPopular": false,
+      "order": 1,
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "quarterly",
+      "name": "季卡会员",
+      "price": 99,
+      "originalPrice": 177,
+      "duration": "90天",
+      "durationDays": 90,
+      "color": "from-purple-500 to-pink-500",
+      "features": [
+        "无限观看全站视频",
+        "超清4K画质",
+        "无广告纯净体验",
+        "专属会员标识",
+        "优先客服支持",
+        "每月赠送花币",
+        "专属会员活动"
+      ],
+      "isPopular": true,
+      "badge": "最划算",
+      "order": 2,
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "yearly",
+      "name": "年卡会员",
+      "price": 299,
+      "originalPrice": 708,
+      "duration": "365天",
+      "durationDays": 365,
+      "color": "from-orange-500 to-red-500",
+      "features": [
+        "无限观看全站视频",
+        "超清4K画质",
+        "无广告纯净体验",
+        "专属会员标识",
+        "优先客服支持",
+        "每月赠送花币",
+        "专属会员活动",
+        "离线下载功能",
+        "多设备同步"
+      ],
+      "isPopular": false,
+      "badge": "超值",
+      "order": 3,
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    }
+  ],
+  "features": [
+    {
+      "id": "unlimited_watch",
+      "icon": "Play",
+      "title": "无限观看",
+      "description": "全站视频随心看，无任何限制",
+      "order": 1,
+      "isActive": true
+    },
+    {
+      "id": "hd_quality",
+      "icon": "Zap",
+      "title": "超清画质",
+      "description": "4K超清画质，视觉盛宴",
+      "order": 2,
+      "isActive": true
+    },
+    {
+      "id": "no_ads",
+      "icon": "Shield",
+      "title": "无广告",
+      "description": "纯净观看体验，告别广告打扰",
+      "order": 3,
+      "isActive": true
+    },
+    {
+      "id": "exclusive_badge",
+      "icon": "Crown",
+      "title": "专属标识",
+      "description": "会员标识，尊贵身份象征",
+      "order": 4,
+      "isActive": true
+    },
+    {
+      "id": "priority_support",
+      "icon": "Headphones",
+      "title": "优先客服",
+      "description": "专属客服，问题快速解决",
+      "order": 5,
+      "isActive": true
+    },
+    {
+      "id": "bonus_coins",
+      "icon": "Gift",
+      "title": "赠送花币",
+      "description": "每月赠送花币，更多福利",
+      "order": 6,
+      "isActive": true
+    },
+    {
+      "id": "exclusive_events",
+      "icon": "Award",
+      "title": "会员活动",
+      "description": "专属会员活动，惊喜不断",
+      "order": 7,
+      "isActive": true
+    },
+    {
+      "id": "offline_download",
+      "icon": "Download",
+      "title": "离线下载",
+      "description": "离线下载功能，随时随地观看",
+      "order": 8,
+      "isActive": true
+    }
+  ]
+}

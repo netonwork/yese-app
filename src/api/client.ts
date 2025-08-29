@@ -1,8 +1,8 @@
 import type { ErrorResponse } from '@/types'
 
-// API配置
+// API配置 - 直接使用Vite环境变量
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api'
-const API_TIMEOUT = 30000 // 30秒超时
+const API_TIMEOUT = Number(import.meta.env.VITE_API_TIMEOUT) || 30000
 
 // Token管理
 class TokenManager {

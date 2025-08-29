@@ -246,11 +246,14 @@ export const CategoryTagsPage = () => {
                 <Menu className="w-6 h-6" />
               </button>
               
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+              <div 
+                className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center cursor-pointer"
+                onClick={() => navigate('/')}
+              >
                 <Play className="w-6 h-6 text-white" fill="white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold gradient-text">夜色视频</h1>
+                <h1 className="text-xl font-bold gradient-text cursor-pointer" onClick={() => navigate('/')}>夜色视频</h1>
                 <p className="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">高品质视频平台</p>
               </div>
             </div>

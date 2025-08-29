@@ -4,6 +4,7 @@ export * from './auth'
 export * from './video'
 export * from './actor'
 export * from './user'
+export * from './vip'
 
 // 搜索相关类型
 import * as v from 'valibot'

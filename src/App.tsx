@@ -9,6 +9,8 @@ import { VideoListPage } from '@/pages/VideoListPage'
 import { CategoryTagsPage } from '@/pages/CategoryTagsPage'
 import { SearchPage } from '@/pages/SearchPage'
 import { WatchPage } from '@/pages/WatchPage'
+import { MyFavoritesPage } from '@/pages/MyFavoritesPage'
+import { WatchHistoryPage } from '@/pages/WatchHistoryPage'
 import '@/global.css'
 
 function renderError({ error }: FallbackProps) {
@@ -49,6 +51,8 @@ export function App() {
 					<Route path="/category/:categoryId" element={<CategoryTagsPage />} />
 					<Route path="/search" element={<SearchPage />} />
 					<Route path="/watch/:videoId" element={<WatchPage />} />
+					<Route path="/favorites" element={<MyFavoritesPage />} />
+					<Route path="/history" element={<WatchHistoryPage />} />
 				</Routes>
 			</BrowserRouter>
 		</ErrorBoundary>
