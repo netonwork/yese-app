@@ -9,8 +9,11 @@ import {App} from './App'
 const queryClient = new QueryClient()
 
 async function enableMocking() {
-	// 只在开发环境且启用MSW时才加载mock
-	if (import.meta.env.PROD) {
+	// 根据环境变量决定是否启用MSW
+	// 开发环境默认启用，生产环境可通过 VITE_ENABLE_MSW=true 启用
+	const shouldEnableMSW = !import.meta.env.PROD || import.meta.env.VITE_ENABLE_MSW === 'true'
+	
+	if (!shouldEnableMSW) {
 		return
 	}
 	

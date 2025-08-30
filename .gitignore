@@ -12,3 +12,8 @@ coverage
 # 环境变量文件
 .env.local
 .env.*.local
+
+# 构建产物
+dist.zip
+*.zip
+*.tar.gz
