@@ -1,7 +1,8 @@
 import {delay, HttpResponse, http} from 'msw'
 import fruits from './data/fruits.json' with {type: 'json'}
 import categories from './data/categories.json' with {type: 'json'}
-import vipData from './data/vip.json' with {type: 'json'}
+import vipData from './data/vip.json'
+import shareData from './data/share.json'
 
 export const handlers = [
 	http.get('/fruits', async () => {
@@ -80,6 +81,33 @@ export const handlers = [
 				paymentUrl: `https://pay.example.com/${order.id}`,
 				qrCode: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==`
 			}
+		})
+	}),
+
+	// 分享数据
+	http.get('/api/share/data', async () => {
+		await delay(200)
+		return HttpResponse.json({
+			config: shareData.config,
+			stats: shareData.stats,
+			inviteUrl: shareData.inviteUrl
+		})
+	}),
+
+	// 邀请点击记录
+	http.post('/api/share/click', async () => {
+		await delay(200)
+		return HttpResponse.json({ success: true })
+	}),
+
+	// 邀请收益记录
+	http.get('/api/share/earnings', async () => {
+		await delay(200)
+		return HttpResponse.json({
+			data: shareData.earnings,
+			total: shareData.earnings.length,
+			page: 1,
+			limit: 20
 		})
 	})
 ]

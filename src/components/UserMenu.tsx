@@ -17,6 +17,7 @@ import {
   MessageSquare,
   Gift
 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { MobileFooterInfo } from './Footer'
 
 interface UserMenuProps {
@@ -144,18 +145,20 @@ export const UserMenu = ({ isLoggedIn, user, onLogin, onLogout }: UserMenuProps)
             </div>
 
             <nav className="py-2">
-              <a href="/profile" className="flex items-center gap-3 px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+              <Link to="/profile" className="flex items-center gap-3 px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
                 <Settings className="w-5 h-5" />
-                <span>个人设置</span>
-              </a>
-              <a href="/favorites" className="flex items-center gap-3 px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                <span>个人中心</span>
+              </Link>
+              
+              <Link to="/favorites" className="flex items-center gap-3 px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
                 <Heart className="w-5 h-5" />
                 <span>我的收藏</span>
-              </a>
-              <a href="/history" className="flex items-center gap-3 px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+              </Link>
+              
+              <Link to="/history" className="flex items-center gap-3 px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
                 <Clock className="w-5 h-5" />
                 <span>观看历史</span>
-              </a>
+              </Link>
               <a href="/messages" className="flex items-center justify-between px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
                 <div className="flex items-center gap-3">
                   <MessageCircle className="w-5 h-5" />
@@ -178,10 +181,10 @@ export const UserMenu = ({ isLoggedIn, user, onLogin, onLogout }: UserMenuProps)
                 </a>
               )}
               
-              <a href="/recharge" className="flex items-center gap-3 px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+              <Link to="/wallet" className="flex items-center gap-3 px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
                 <CreditCard className="w-5 h-5" />
-                <span>花币充值 / 余额</span>
-              </a>
+                <span>花币钱包</span>
+              </Link>
               
               <a href="/share" className="flex items-center gap-3 px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
                 <Share2 className="w-5 h-5" />
@@ -293,10 +296,10 @@ export const UserMenu = ({ isLoggedIn, user, onLogin, onLogout }: UserMenuProps)
               {/* 菜单项 */}
               <nav className="p-4 space-y-1">
                 {/* 个人中心 */}
-                <a href="/profile" className="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                <Link to="/profile" className="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                   <User className="w-5 h-5" />
                   <span>个人中心</span>
-                </a>
+                </Link>
                 
                 {/* 我的收藏 */}
                 <a href="/favorites" className="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
@@ -330,11 +333,11 @@ export const UserMenu = ({ isLoggedIn, user, onLogin, onLogout }: UserMenuProps)
                   </a>
                 </div>
                 
-                {/* 花币充值 */}
-                <a href="/recharge" className="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                {/* 花币钱包 */}
+                <Link to="/wallet" className="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                   <CreditCard className="w-5 h-5" />
-                  <span>花币充值 / 余额</span>
-                </a>
+                  <span>花币钱包</span>
+                </Link>
                 
                 {/* 分享赚花币 */}
                 <a href="/share" className="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">

@@ -1,0 +1,48 @@
+{
+  "config": {
+    "registerReward": 5,
+    "firstPurchaseRewardPercent": 30,
+    "renewalRewardPercent": 15,
+    "minWithdrawAmount": 500,
+    "coinToRmbRate": 1,
+    "freeViewsPerInvite": 5,
+    "viewsPerVideo": 1
+  },
+  "stats": {
+    "totalCoins": 1250,
+    "totalInvites": 8,
+    "monthlyEarnings": 380,
+    "freeViews": 25,
+    "pendingRewards": 150
+  },
+  "inviteUrl": "https://yese.tv/share/175638742251",
+  "earnings": [
+    {
+      "id": "1",
+      "type": "register",
+      "amount": 5,
+      "description": "好友注册奖励",
+      "friendName": "张三",
+      "date": "2024-01-15 14:30",
+      "status": "completed"
+    },
+    {
+      "id": "2",
+      "type": "first_purchase",
+      "amount": 150,
+      "description": "好友首次购买VIP奖励",
+      "friendName": "李四",
+      "date": "2024-01-14 09:15",
+      "status": "completed"
+    },
+    {
+      "id": "3",
+      "type": "renewal",
+      "amount": 75,
+      "description": "好友续费VIP奖励",
+      "friendName": "王五",
+      "date": "2024-01-13 16:45",
+      "status": "pending"
+    }
+  ]
+}

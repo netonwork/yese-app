@@ -13,6 +13,8 @@ import { MyFavoritesPage } from '@/pages/MyFavoritesPage'
 import { WatchHistoryPage } from '@/pages/WatchHistoryPage'
 import { ShareEarnPage } from '@/pages/ShareEarnPage'
 import { CoinsPage } from '@/pages/CoinsPage'
+import { WalletPage } from '@/pages/WalletPage'
+import { ProfilePage } from '@/pages/ProfilePage'
 import '@/global.css'
 
 function renderError({ error }: FallbackProps) {
@@ -56,7 +58,9 @@ export function App() {
 					<Route path="/favorites" element={<MyFavoritesPage />} />
 					<Route path="/history" element={<WatchHistoryPage />} />
 					<Route path="/share" element={<ShareEarnPage />} />
+					<Route path="/wallet" element={<WalletPage />} />
 					<Route path="/coins" element={<CoinsPage />} />
+					<Route path="/profile" element={<ProfilePage />} />
 				</Routes>
 			</BrowserRouter>
 		</ErrorBoundary>

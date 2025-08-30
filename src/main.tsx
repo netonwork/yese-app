@@ -10,9 +10,12 @@ const queryClient = new QueryClient()
 
 async function enableMocking() {
 	// 只在开发环境且启用MSW时才加载mock
-	if (import.meta.env.PROD || import.meta.env.VITE_ENABLE_MSW !== 'true') {
+	if (import.meta.env.PROD) {
 		return
 	}
+	
+	// 开发环境默认启用MSW
+	console.log('启用MSW模拟服务...')
 	
 	const {worker} = await import('./mocks/browser')
 	return worker.start({

@@ -226,7 +226,7 @@ export const WatchPage = () => {
               </button>
               <button 
                 onClick={() => {
-                  navigate('/invite')
+                  navigate('/share')
                   closeVipBanner()
                 }}
                 className="flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-xl font-medium transition-colors border border-white/30 text-sm"
