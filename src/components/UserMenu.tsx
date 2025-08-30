@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { createPortal } from 'react-dom'
+import { useUser, useAppStore } from '@/stores/useAppStore'
 import { 
   User, 
   Settings, 
@@ -21,23 +22,39 @@ import { Link } from 'react-router-dom'
 import { MobileFooterInfo } from './Footer'
 
 interface UserMenuProps {
-  isLoggedIn: boolean
-  user?: {
-    username: string
-    avatar?: string
-    isVip: boolean
-    vipLevel?: number
-    vipExpireDate?: string
-    coinBalance: number
-  }
-  onLogin: () => void
-  onLogout: () => void
+  // 保留一些可选的回调函数，用于特殊场景
+  onLoginClick?: () => void
+  onLogoutClick?: () => void
 }
 
-export const UserMenu = ({ isLoggedIn, user, onLogin, onLogout }: UserMenuProps) => {
+export const UserMenu = ({ onLoginClick, onLogoutClick }: UserMenuProps) => {
+  // 使用 Zustand 状态管理
+  const { user, isLoggedIn } = useUser()
+  const logout = useAppStore(state => state.logout)
+  
   const [isOpen, setIsOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
+
+  // 处理登录点击
+  const handleLoginClick = () => {
+    if (onLoginClick) {
+      onLoginClick()
+    } else {
+      // 默认跳转到登录页面
+      window.location.href = '/login'
+    }
+  }
+
+  // 处理登出点击
+  const handleLogoutClick = () => {
+    logout() // 使用 Zustand 的 logout
+    setIsOpen(false)
+    setIsMobileMenuOpen(false)
+    if (onLogoutClick) {
+      onLogoutClick()
+    }
+  }
 
   // 点击外部关闭菜单
   useEffect(() => {
@@ -71,7 +88,7 @@ export const UserMenu = ({ isLoggedIn, user, onLogin, onLogout }: UserMenuProps)
       <>
         {/* 桌面端登录按钮 */}
         <button
-          onClick={onLogin}
+          onClick={handleLoginClick}
           className="hidden md:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-medium hover:shadow-lg hover:scale-105 transition-all duration-200"
         >
           <User className="w-5 h-5" />
@@ -80,7 +97,7 @@ export const UserMenu = ({ isLoggedIn, user, onLogin, onLogout }: UserMenuProps)
 
         {/* 移动端登录按钮 */}
         <button
-          onClick={onLogin}
+          onClick={handleLoginClick}
           className="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
         >
           <User className="w-6 h-6" />
@@ -201,7 +218,7 @@ export const UserMenu = ({ isLoggedIn, user, onLogin, onLogout }: UserMenuProps)
               
               <div className="border-t border-slate-200 dark:border-slate-700 my-2"></div>
               <button
-                onClick={onLogout}
+                onClick={handleLogoutClick}
                 className="w-full flex items-center gap-3 px-4 py-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
               >
                 <LogOut className="w-5 h-5" />
@@ -282,10 +299,7 @@ export const UserMenu = ({ isLoggedIn, user, onLogin, onLogout }: UserMenuProps)
                 
                 {/* 退出登录按钮 */}
                 <button
-                  onClick={() => {
-                    onLogout()
-                    setIsMobileMenuOpen(false)
-                  }}
+                  onClick={handleLogoutClick}
                   className="flex items-center justify-center gap-2 w-full p-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 rounded-lg transition-colors"
                 >
                   <LogOut className="w-5 h-5" />

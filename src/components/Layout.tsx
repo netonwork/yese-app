@@ -35,17 +35,6 @@ export const Layout = ({
   
   // 获取分类数据（仅在需要时）
   const { categories } = showCategorySidebar ? useCategories() : { categories: [] }
-  
-  // 模拟用户登录状态和VIP状态
-  const [isLoggedIn, setIsLoggedIn] = useState(true) // 模拟已登录
-  const [user] = useState({
-    username: '用户001',
-    avatar: 'https://api.yviii.com/img/meitu?avatar',
-    isVip: false, // 模拟非VIP用户
-    vipLevel: 1,
-    vipExpireDate: '2024-03-15',
-    coinBalance: 1250
-  })
 
   return (
     <div className={`min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 ${className}`}>
@@ -91,19 +80,7 @@ export const Layout = ({
 
             {/* 右侧操作 */}
             <div className="flex items-center">
-              <UserMenu
-                isLoggedIn={isLoggedIn}
-                {...(isLoggedIn && { user })}
-                onLogin={() => {
-                  // 模拟登录
-                  setIsLoggedIn(true)
-                  // 实际项目中这里应该跳转到登录页面
-                  // navigate('/login')
-                }}
-                onLogout={() => {
-                  setIsLoggedIn(false)
-                }}
-              />
+              <UserMenu />
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@ export * from './actors'
 export * from './user'
 export * from './search'
 export * from './vip'
+export * from './config'
 
 // 导出API客户端实例
 export { apiClient } from './client'

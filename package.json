@@ -16,6 +16,7 @@
 		"format": "biome format --write",
 		"validate": "pnpm lint && pnpm test:ci && pnpm test:e2e:ci",
 		"build": "vite build",
+		"build:prod": "vite build --mode production",
 		"preview": "vite preview"
 	},
 	"dependencies": {
@@ -27,7 +28,8 @@
 		"react-error-boundary": "6.0.0",
 		"react-router": "7.8.0",
 		"react-router-dom": "^7.8.2",
-		"valibot": "1.1.0"
+		"valibot": "1.1.0",
+		"zustand": "^5.0.8"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.1.4",

@@ -1,0 +1,122 @@
+{
+  "siteName": "夜色视频",
+  "logo": "/logo.png",
+  "domain": "https://yese.tv",
+  "version": "2.1.0",
+  "api": {
+    "baseUrl": "/api",
+    "timeout": 30000,
+    "version": "v2",
+    "endpoints": {
+      "auth": "/auth",
+      "video": "/videos",
+      "user": "/user",
+      "vip": "/vip",
+      "share": "/share",
+      "upload": "/upload"
+    }
+  },
+  "cdn": {
+    "buckets": {
+      "video": [
+        "yese-video-primary",
+        "yese-video-backup",
+        "yese-video-hd"
+      ],
+      "image": [
+        "yese-images-main",
+        "yese-images-thumb",
+        "yese-images-avatar"
+      ],
+      "audio": [
+        "yese-audio-main"
+      ],
+      "document": [
+        "yese-docs-main"
+      ]
+    },
+    "domains": [
+      "cdn1.yese.tv",
+      "cdn2.yese.tv",
+      "cdn3.yese.tv",
+      "backup-cdn.yese.tv"
+    ],
+    "defaultBucket": "yese-video-primary"
+  },
+  "encryption": {
+    "imageDecryptKey": "yese_img_2024_secure_key_v2",
+    "videoDecryptKey": "yese_video_2024_ultra_secure_key_v2",
+    "audioDecryptKey": "yese_audio_2024_secure_key_v2",
+    "algorithm": "AES-256-GCM",
+    "keyRotationInterval": 168
+  },
+  "features": {
+    "enableVip": true,
+    "enableShare": true,
+    "enableCoins": true,
+    "enableDownload": true,
+    "enableOffline": true,
+    "enablePush": true,
+    "enableAnalytics": true
+  },
+  "business": {
+    "maxFreeVideos": 5,
+    "vipTrialDays": 3,
+    "shareRewardCoins": 20,
+    "inviteRewardCoins": 100,
+    "coinExchangeRate": 0.008,
+    "minWithdrawAmount": 500
+  },
+  "thirdParty": {
+    "analytics": {
+      "googleAnalytics": "G-XXXXXXXXXX",
+      "baiduTongji": "xxxxxxxxxxxxxxxx"
+    },
+    "payment": {
+      "alipay": {
+        "appId": "2021001234567890",
+        "publicKey": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA..."
+      },
+      "wechat": {
+        "appId": "wx1234567890abcdef",
+        "mchId": "1234567890"
+      }
+    },
+    "push": {
+      "jpush": {
+        "appKey": "1234567890abcdef"
+      },
+      "firebase": {
+        "projectId": "yese-video-app"
+      }
+    }
+  },
+  "security": {
+    "tokenExpiry": 7200,
+    "refreshTokenExpiry": 604800,
+    "maxLoginAttempts": 3,
+    "captchaThreshold": 2,
+    "allowedDomains": [
+      "yese.tv",
+      "*.yese.tv",
+      "localhost:5173",
+      "127.0.0.1:5173"
+    ]
+  },
+  "ui": {
+    "theme": {
+      "primaryColor": "#8b5cf6",
+      "secondaryColor": "#ec4899",
+      "accentColor": "#06b6d4"
+    },
+    "layout": {
+      "headerHeight": 64,
+      "sidebarWidth": 280,
+      "footerHeight": 88
+    },
+    "pagination": {
+      "defaultPageSize": 24,
+      "maxPageSize": 100
+    }
+  }
+}

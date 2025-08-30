@@ -3,11 +3,38 @@ import fruits from './data/fruits.json' with {type: 'json'}
 import categories from './data/categories.json' with {type: 'json'}
 import vipData from './data/vip.json'
 import shareData from './data/share.json'
+import siteConfigData from './data/siteConfig.json' with {type: 'json'}
 
 export const handlers = [
 	http.get('/fruits', async () => {
 		await delay('real')
 		return HttpResponse.json(fruits)
+	}),
+
+	// 站点配置API - 这是最重要的初始化接口
+	http.get('/api/config/site', async () => {
+		await delay(300) // 模拟网络延迟
+		console.log('MSW: 返回站点配置数据')
+		return HttpResponse.json(siteConfigData)
+	}),
+
+	http.get('/api/config/encryption', async () => {
+		await delay(200)
+		return HttpResponse.json({
+			imageKey: siteConfigData.encryption.imageDecryptKey,
+			videoKey: siteConfigData.encryption.videoDecryptKey,
+			audioKey: siteConfigData.encryption.audioDecryptKey,
+			algorithm: siteConfigData.encryption.algorithm
+		})
+	}),
+
+	http.get('/api/config/cdn', async () => {
+		await delay(200)
+		return HttpResponse.json({
+			buckets: siteConfigData.cdn.buckets,
+			domains: siteConfigData.cdn.domains,
+			defaultBucket: siteConfigData.cdn.defaultBucket
+		})
 	}),
 
 	// 分类相关API

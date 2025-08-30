@@ -9,3 +9,6 @@ coverage
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+# 环境变量文件
+.env.local
+.env.*.local
