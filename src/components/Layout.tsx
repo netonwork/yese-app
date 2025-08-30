@@ -16,13 +16,15 @@ interface LayoutProps {
   showSidebar?: boolean
   showFooter?: boolean
   className?: string
+  selectedCategory?: string
 }
 
 export const Layout = ({ 
   children, 
   showSidebar = true, 
   showFooter = true,
-  className = ''
+  className = '',
+  selectedCategory = ''
 }: LayoutProps) => {
   const navigate = useNavigate()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -116,7 +118,7 @@ export const Layout = ({
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
           categories={categories}
-          selectedCategory=""
+          selectedCategory={selectedCategory}
           onCategorySelect={(categoryId) => {
             console.log('Layout: 分类选择:', categoryId)
             if (categoryId === 'home') {

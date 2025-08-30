@@ -180,7 +180,7 @@ export const VideoCard = ({ video, onClick, size = 'medium' }: VideoCardProps) =
                   e.stopPropagation() // 阻止事件冒泡到父级的onClick
                   navigate(`/videos?actor=${encodeURIComponent(video.actors[0])}`)
                 }}
-                className="truncate px-1 hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer underline-offset-2 hover:underline"
+                className="overflow-hidden px-1 hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer underline-offset-2 hover:underline"
               >
                 {video.actors[0]}
               </button>

@@ -93,7 +93,7 @@ export const HomePage = () => {
         videos={videos}
         loading={loading}
         size="medium"
-        gridCols="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        gridCols="grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
       />
 
       {/* 分页组件 */}

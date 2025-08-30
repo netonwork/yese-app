@@ -381,7 +381,7 @@ export const WatchPage = () => {
             </div>
 
             {/* 视频网格 */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
               {relatedVideos.map((video) => (
                 <VideoCard
                   key={video.id}
@@ -413,7 +413,7 @@ export const WatchPage = () => {
             </div>
 
             {/* 视频网格 */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
               {relatedVideos.map((video) => (
                 <VideoCard
                   key={video.id}

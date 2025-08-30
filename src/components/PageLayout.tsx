@@ -19,9 +19,11 @@ export const PageLayout = ({
   
   // 获取分类数据
   const { categories } = useCategories()
+  
+
 
   return (
-    <Layout showFooter={showFooter} className={className}>
+    <Layout showFooter={showFooter} className={className} selectedCategory={selectedCategory}>
       {/* 主要内容区域 - 左右布局 */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex gap-6 items-start">
