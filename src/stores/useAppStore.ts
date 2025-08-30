@@ -1,5 +1,6 @@
 import { create } from 'zustand'
-import { persist, createJSONStorage } from 'zustand/middleware'
+import { persist, createJSONStorage, subscribeWithSelector } from 'zustand/middleware'
+import { useMemo } from 'react'
 
 // 用户信息类型
 interface User {
@@ -167,8 +168,9 @@ interface AppState {
 }
 
 export const useAppStore = create<AppState>()(
-  persist(
-    (set, get) => ({
+  subscribeWithSelector(
+    persist(
+      (set, get) => ({
       // 邀请相关
       inviteCode: null,
       setInviteCode: (code) => {
@@ -227,34 +229,41 @@ export const useAppStore = create<AppState>()(
         set({ searchHistory: newHistory })
       },
       clearSearchHistory: () => set({ searchHistory: [] }),
-    }),
-    {
-      name: 'video-app-storage', // localStorage key
-      storage: createJSONStorage(() => localStorage),
-      // 只持久化需要的状态，临时状态不持久化
-      partialize: (state) => ({
-        inviteCode: state.inviteCode,
-        user: state.user,
-        isLoggedIn: state.isLoggedIn,
-        siteConfig: state.siteConfig,
-        theme: state.theme,
-        searchHistory: state.searchHistory,
       }),
-    }
+      {
+        name: 'video-app-storage', // localStorage key
+        storage: createJSONStorage(() => localStorage),
+        // 只持久化需要的状态，临时状态不持久化
+        partialize: (state) => {
+          const { isLoading, ...persistedState } = state
+          return persistedState
+        },
+      }
+    )
   )
 )
 
 // 便捷的选择器 hooks
-export const useUser = () => useAppStore(state => ({ 
-  user: state.user, 
-  isLoggedIn: state.isLoggedIn 
-}))
+export const useUser = () => {
+  const user = useAppStore(state => state.user)
+  const isLoggedIn = useAppStore(state => state.isLoggedIn)
+  
+  return useMemo(() => ({ 
+    user, 
+    isLoggedIn 
+  }), [user, isLoggedIn])
+}
 
 export const useInviteCode = () => useAppStore(state => state.inviteCode)
 
 export const useSiteConfig = () => useAppStore(state => state.siteConfig)
 
-export const useTheme = () => useAppStore(state => ({ 
-  theme: state.theme, 
-  setTheme: state.setTheme 
-}))
+export const useTheme = () => {
+  const theme = useAppStore(state => state.theme)
+  const setTheme = useAppStore(state => state.setTheme)
+  
+  return useMemo(() => ({ 
+    theme, 
+    setTheme 
+  }), [theme, setTheme])
+}

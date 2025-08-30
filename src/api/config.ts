@@ -7,7 +7,7 @@ import type { SiteConfig } from '@/stores/useAppStore'
  */
 export const getSiteConfig = async (): Promise<SiteConfig> => {
   const response = await apiClient.get<SiteConfig>('/config/site')
-  return response.data
+  return response
 }
 
 /**
@@ -15,7 +15,7 @@ export const getSiteConfig = async (): Promise<SiteConfig> => {
  */
 export const updateSiteConfig = async (config: Partial<SiteConfig>): Promise<SiteConfig> => {
   const response = await apiClient.put<SiteConfig>('/config/site', config)
-  return response.data
+  return response
 }
 
 /**
@@ -27,8 +27,13 @@ export const getEncryptionKeys = async (): Promise<{
   audioKey: string
   algorithm: string
 }> => {
-  const response = await apiClient.get('/config/encryption')
-  return response.data
+  const response = await apiClient.get<{
+    imageKey: string
+    videoKey: string
+    audioKey: string
+    algorithm: string
+  }>('/config/encryption')
+  return response
 }
 
 /**
@@ -39,6 +44,10 @@ export const getCdnConfig = async (): Promise<{
   domains: string[]
   defaultBucket: string
 }> => {
-  const response = await apiClient.get('/config/cdn')
-  return response.data
+  const response = await apiClient.get<{
+    buckets: Record<string, string[]>
+    domains: string[]
+    defaultBucket: string
+  }>('/config/cdn')
+  return response
 }
