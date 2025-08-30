@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { ChevronRight } from 'lucide-react'
-import { PageLayout } from '@/components/PageLayout'
+import { Layout } from '@/components/Layout'
 import { VideoCard } from '@/components/VideoCard'
 import { useCategories } from '@/hooks/useCategories'
 
@@ -155,7 +155,7 @@ export const CategoryTagsPage = () => {
 
   if (loading) {
     return (
-      <PageLayout selectedCategory={categoryId || ''}>
+      <Layout showCategorySidebar={true} selectedCategory={categoryId || ''}>
         <div className="animate-pulse">
           <div className="h-8 bg-slate-200 dark:bg-slate-700 rounded w-1/3 mb-4"></div>
           <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-2/3 mb-8"></div>
@@ -172,13 +172,13 @@ export const CategoryTagsPage = () => {
             ))}
           </div>
         </div>
-      </PageLayout>
+      </Layout>
     )
   }
 
   if (!category) {
     return (
-      <PageLayout>
+      <Layout showCategorySidebar={true}>
         <div className="text-center py-16">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             分类不存在
@@ -193,14 +193,14 @@ export const CategoryTagsPage = () => {
             返回首页
           </button>
         </div>
-      </PageLayout>
+      </Layout>
     )
   }
 
   const categoryInfo = getCategoryInfo(categoryId!)
 
   return (
-    <PageLayout selectedCategory={categoryId || ''}>
+    <Layout showCategorySidebar={true} selectedCategory={categoryId || ''}>
       {/* 分类标题和描述 */}
       <div className="mb-8">
         <div className="flex items-baseline gap-3 mb-2">
@@ -306,6 +306,6 @@ export const CategoryTagsPage = () => {
           </div>
         ))}
       </div>
-    </PageLayout>
+    </Layout>
   )
 }

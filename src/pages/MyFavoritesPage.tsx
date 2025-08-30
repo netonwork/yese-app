@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { Heart } from 'lucide-react'
-import { PageLayout } from '@/components/PageLayout'
+import { Layout } from '@/components/Layout'
 import { VideoGrid } from '@/components/VideoGrid'
 import { Pagination } from '@/components/Pagination'
 
@@ -61,7 +61,7 @@ export const MyFavoritesPage = () => {
   }, [mockFavoriteVideos])
 
   return (
-    <PageLayout>
+    <Layout showCategorySidebar={true}>
       {/* 页面标题 */}
       <div className="mb-6">
         <div className="flex items-baseline gap-3">
@@ -87,6 +87,6 @@ export const MyFavoritesPage = () => {
         totalPages={totalPages}
         onPageChange={setCurrentPage}
       />
-    </PageLayout>
+    </Layout>
   )
 }

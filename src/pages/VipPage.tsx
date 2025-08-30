@@ -3,6 +3,7 @@ import { ArrowLeft, Crown, Check, Shield, Users, Headphones, Play, Zap, Award, G
 import { useNavigate } from 'react-router-dom'
 import { getVipPlans, getVipFeatures } from '@/api/vip'
 import type { VipPlan, VipFeature } from '@/types/vip'
+import { Layout } from '@/components/Layout'
 
 // 图标映射
 const iconMap = {
@@ -74,40 +75,64 @@ export const VipPage = () => {
   const selectedPlanData = vipPlans.find(plan => plan.id === selectedPlan)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* 顶部导航 */}
-      <header className="flex items-center justify-between p-4">
-        <button
-          onClick={() => navigate('/')}
-          className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-        >
-          <ArrowLeft className="w-6 h-6" />
-        </button>
-        <h1 className="text-lg font-semibold text-white">VIP会员</h1>
-        <div className="w-10" />
-      </header>
-
-      <div className="px-4 pb-24">
-        {/* 用户信息区域 */}
-        <div className="max-w-2xl mx-auto mb-6">
-          <div className="flex items-center gap-4 px-2">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
-              <span className="text-white text-xl font-bold">用</span>
-            </div>
-            <div className="flex-1">
-              <h2 className="text-lg font-medium text-white mb-1">
-                用户昵称
+    <Layout showCategorySidebar={true}>
+      <div className="min-h-screen">
+        <div className="pb-24">
+        {/* VIP推广卡片 */}
+        <div className="max-w-2xl mx-auto mb-8">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-yellow-400 via-amber-500 to-yellow-600 shadow-2xl shadow-amber-500/50 p-[2px]">
+            {/* 内层深色背景 */}
+            <div className="relative rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 h-full w-full">
+              {/* 金色光晕效果 */}
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-400/20 via-yellow-400/10 to-orange-400/20 rounded-3xl"></div>
+              
+              {/* 顶部金色装饰条 */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
+              
+              {/* 内容区域 */}
+              <div className="relative p-6 text-center">
+              {/* 主标题 */}
+              <h2 className="text-xl font-bold bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-300 bg-clip-text text-transparent mb-2 tracking-wide">
+                VIP 尊享特权
               </h2>
-              <p className="text-slate-400 text-sm">
-                开通VIP会员，解锁全站内容
+              
+              {/* 副标题 */}
+              <p className="text-base font-light text-white/90 mb-4 leading-relaxed">
+                解锁全站高清内容 · 畅享无限精彩
               </p>
+              
+              {/* 特权描述 */}
+              <div className="flex items-center justify-center gap-10 text-xs">
+                <div className="flex flex-col items-center gap-1 text-amber-300">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center">
+                    <Play className="w-3 h-3 text-slate-900" />
+                  </div>
+                  <span className="font-medium">无限观看</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 text-amber-300">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center">
+                    <Zap className="w-3 h-3 text-slate-900" />
+                  </div>
+                  <span className="font-medium">超清画质</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 text-amber-300">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center">
+                    <Shield className="w-3 h-3 text-slate-900" />
+                  </div>
+                  <span className="font-medium">无广告</span>
+                </div>
+              </div>
+              
+              {/* 底部装饰线 */}
+              <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 w-12 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
+              </div>
             </div>
           </div>
         </div>
 
         {/* 套餐选择 */}
         <div className="mb-8">
-          <h3 className="text-xl font-bold text-white text-center mb-6">选择套餐</h3>
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 text-center mb-6">选择套餐</h3>
           <div className="space-y-3 max-w-2xl mx-auto">
             {dataLoading ? (
               // 加载状态
@@ -150,7 +175,7 @@ export const VipPage = () => {
                       <Crown className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="text-lg font-bold text-white">{plan.name}</h4>
+                      <h4 className="text-lg font-bold text-slate-900 dark:text-slate-100">{plan.name}</h4>
                       <p className="text-slate-400 text-sm">{plan.duration}</p>
                     </div>
                   </div>
@@ -158,7 +183,7 @@ export const VipPage = () => {
                   {/* 价格信息 */}
                   <div className="text-right">
                     <div className="flex items-center gap-2">
-                      <span className="text-2xl font-bold text-white">¥{plan.price}</span>
+                      <span className="text-2xl font-bold text-slate-900 dark:text-slate-100">¥{plan.price}</span>
                       {plan.originalPrice && (
                         <span className="text-sm text-slate-400 line-through">¥{plan.originalPrice}</span>
                       )}
@@ -189,8 +214,8 @@ export const VipPage = () => {
 
         {/* VIP权益说明 */}
         <div className="mb-8">
-          <h3 className="text-xl font-bold text-white text-center mb-6">VIP权益</h3>
-          <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 max-w-2xl mx-auto">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 text-center mb-6">VIP权益</h3>
+          <div className="bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-200/50 dark:border-slate-700/50 max-w-2xl mx-auto">
             {dataLoading ? (
               <div className="grid grid-cols-4 gap-4">
                 {Array.from({ length: 8 }).map((_, index) => (
@@ -220,23 +245,23 @@ export const VipPage = () => {
 
         {/* 底部保障 */}
         <div className="mb-8 max-w-2xl mx-auto">
-          <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl p-6 border border-slate-700/50">
-            <h4 className="text-white font-bold text-center mb-4">安全保障</h4>
+          <div className="bg-white/30 dark:bg-slate-800/30 backdrop-blur-sm rounded-xl p-6 border border-slate-200/50 dark:border-slate-700/50">
+            <h4 className="text-slate-900 dark:text-slate-100 font-bold text-center mb-4">安全保障</h4>
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
                 <Shield className="w-8 h-8 mx-auto mb-2 text-green-400" />
-                <p className="text-slate-300 text-sm font-medium">银行级加密</p>
-                <p className="text-slate-500 text-xs">支付信息安全保护</p>
+                <p className="text-slate-700 dark:text-slate-300 text-sm font-medium">银行级加密</p>
+                <p className="text-slate-500 dark:text-slate-500 text-xs">支付信息安全保护</p>
               </div>
               <div>
                 <Users className="w-8 h-8 mx-auto mb-2 text-blue-400" />
-                <p className="text-slate-300 text-sm font-medium">7天无理由退款</p>
-                <p className="text-slate-500 text-xs">不满意随时退款</p>
+                <p className="text-slate-700 dark:text-slate-300 text-sm font-medium">7天无理由退款</p>
+                <p className="text-slate-500 dark:text-slate-500 text-xs">不满意随时退款</p>
               </div>
               <div>
                 <Headphones className="w-8 h-8 mx-auto mb-2 text-purple-400" />
-                <p className="text-slate-300 text-sm font-medium">24小时客服</p>
-                <p className="text-slate-500 text-xs">专业团队在线服务</p>
+                <p className="text-slate-700 dark:text-slate-300 text-sm font-medium">24小时客服</p>
+                <p className="text-slate-500 dark:text-slate-500 text-xs">专业团队在线服务</p>
               </div>
             </div>
           </div>
@@ -272,6 +297,7 @@ export const VipPage = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </Layout>
   )
 }

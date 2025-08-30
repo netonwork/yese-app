@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { PageLayout } from '@/components/PageLayout'
+import { Layout } from '@/components/Layout'
 import { VideoGrid } from '@/components/VideoGrid'
 import { Pagination } from '@/components/Pagination'
 
@@ -144,7 +144,7 @@ export const VideoListPage = () => {
   }, [categoryId, tagName, actorName])
 
   return (
-    <PageLayout>
+    <Layout showCategorySidebar={true}>
       {/* 页面标题 */}
       <div className="mb-6">
         <div className="flex items-baseline gap-3">
@@ -173,6 +173,6 @@ export const VideoListPage = () => {
         totalPages={totalPages}
         onPageChange={setCurrentPage}
       />
-    </PageLayout>
+    </Layout>
   )
 }

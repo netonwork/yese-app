@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Eye, EyeOff, ArrowLeft, Smartphone, Lock } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
+import { Layout } from '@/components/Layout'
 
 export const LoginPage = () => {
   const navigate = useNavigate()
@@ -60,7 +61,8 @@ export const LoginPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
+    <Layout>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
       {/* 顶部导航 */}
       <header className="flex items-center justify-between p-4">
         <button
@@ -190,5 +192,6 @@ export const LoginPage = () => {
         </div>
       </div>
     </div>
+    </Layout>
   )
 }

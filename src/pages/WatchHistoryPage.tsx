@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { PageLayout } from '@/components/PageLayout'
+import { Layout } from '@/components/Layout'
 import { VideoGrid } from '@/components/VideoGrid'
 import { Pagination } from '@/components/Pagination'
 
@@ -61,7 +61,7 @@ export const WatchHistoryPage = () => {
   }, [mockHistoryVideos])
 
   return (
-    <PageLayout>
+    <Layout showCategorySidebar={true}>
       {/* 页面标题 */}
       <div className="mb-6">
         <div className="flex items-baseline gap-3">
@@ -87,6 +87,6 @@ export const WatchHistoryPage = () => {
         totalPages={totalPages}
         onPageChange={setCurrentPage}
       />
-    </PageLayout>
+    </Layout>
   )
 }

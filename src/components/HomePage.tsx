@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { PageLayout } from './PageLayout'
+import { useSearchParams } from 'react-router-dom'
+import { Layout } from './Layout'
 import { AppInstallBanner } from './AppInstallBanner'
 import { VipAnnouncements } from './VipAnnouncements'
 import { VideoGrid } from './VideoGrid'
@@ -41,9 +42,26 @@ const mockVideos: Video[] = Array.from({ length: 48 }, (_, i) => {
 })
 
 export const HomePage = () => {
+  const [searchParams] = useSearchParams()
   const [selectedCategory] = useState('home')
   const [currentPage, setCurrentPage] = useState(1)
   const [loading, setLoading] = useState(false)
+  
+  // 处理邀请参数
+  useEffect(() => {
+    const inviteCode = searchParams.get('invite')
+    if (inviteCode) {
+      console.log('检测到邀请码:', inviteCode)
+      // 这里可以调用API记录邀请点击
+      // recordInviteClick(inviteCode)
+      
+      // 可以显示欢迎提示或者保存邀请码到localStorage
+      localStorage.setItem('inviteCode', inviteCode)
+      
+      // 可选：显示邀请成功的提示
+      // toast.success('通过邀请链接访问，注册即可获得奖励！')
+    }
+  }, [searchParams])
   
   const videosPerPage = 20
   const totalVideos = mockVideos.length
@@ -78,7 +96,7 @@ export const HomePage = () => {
   }, [selectedCategory, currentPage])
 
   return (
-    <PageLayout selectedCategory={selectedCategory}>
+    <Layout showCategorySidebar={true} selectedCategory={selectedCategory}>
       {/* 顶部内容区域 */}
       <div className="space-y-4 mb-6">
         {/* 安装APP横幅 */}
@@ -102,6 +120,6 @@ export const HomePage = () => {
         totalPages={totalPages}
         onPageChange={setCurrentPage}
       />
-    </PageLayout>
+    </Layout>
   )
 }

@@ -62,9 +62,19 @@ export const ShareEarnPage = () => {
     fetchShareData()
   }, [])
 
+  // 生成当前页面的邀请链接
+  const generateInviteUrl = () => {
+    // 从原始shareUrl中提取邀请码
+    const inviteCode = shareUrl.split('/').pop() || shareUrl.split('=').pop() || 'default'
+    // 使用当前页面的域名和路径
+    const currentOrigin = window.location.origin
+    return `${currentOrigin}?invite=${inviteCode}`
+  }
+
   const handleCopyUrl = async () => {
     try {
-      await navigator.clipboard.writeText(shareUrl)
+      const inviteUrl = generateInviteUrl()
+      await navigator.clipboard.writeText(inviteUrl)
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch (err) {
@@ -75,9 +85,9 @@ export const ShareEarnPage = () => {
   // 加载状态
   if (loading || !config || !stats) {
     return (
-      <Layout>
-        <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <Layout showCategorySidebar={true}>
+        <div className="min-h-screen">
+          <div className="max-w-4xl mx-auto">
             <div className="animate-pulse">
               <div className="h-6 bg-slate-200 dark:bg-slate-700 rounded w-2/3 mx-auto mb-8"></div>
               <div className="bg-white/80 dark:bg-slate-800/80 rounded-2xl p-6 mb-8">
@@ -101,12 +111,10 @@ export const ShareEarnPage = () => {
     )
   }
 
-
-
   return (
-    <Layout>
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <Layout showCategorySidebar={true}>
+      <div className="min-h-screen">
+        <div className="max-w-4xl mx-auto">
           {/* 分享好处描述 */}
           <div className="mb-6">
             <p className="text-center text-slate-600 dark:text-slate-400">
@@ -125,7 +133,7 @@ export const ShareEarnPage = () => {
             <div className="mb-4">
               <div className="px-4 py-3 bg-slate-100 dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-600">
                 <span className="text-sm text-slate-600 dark:text-slate-400 break-all">
-                  {shareUrl}
+                  {shareUrl ? generateInviteUrl() : '加载中...'}
                 </span>
               </div>
             </div>

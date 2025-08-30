@@ -16,9 +16,9 @@ export const WalletPage = () => {
   })
 
   return (
-    <Layout>
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50 dark:from-slate-900 dark:via-purple-900/20 dark:to-slate-900">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <Layout showCategorySidebar={true}>
+      <div className="min-h-screen">
+        <div className="max-w-4xl mx-auto">
           {/* 页面标题 */}
           <div className="mb-8">
             <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">

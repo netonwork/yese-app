@@ -14,7 +14,7 @@ import {
   Users,
   Tag
 } from 'lucide-react'
-import { PageLayout } from '@/components/PageLayout'
+import { Layout } from '@/components/Layout'
 import { VideoCard } from '@/components/VideoCard'
 import { VipAnnouncements } from '@/components/VipAnnouncements'
 
@@ -147,7 +147,7 @@ export const WatchPage = () => {
   // 加载状态
   if (loading) {
     return (
-      <PageLayout showFooter={false}>
+      <Layout showCategorySidebar={true} showFooter={false}>
         <div className="animate-pulse">
           <div className="aspect-video bg-slate-200 dark:bg-slate-700 rounded-xl mb-6"></div>
           <div className="h-8 bg-slate-200 dark:bg-slate-700 rounded w-3/4 mb-4"></div>
@@ -158,14 +158,14 @@ export const WatchPage = () => {
             ))}
           </div>
         </div>
-      </PageLayout>
+      </Layout>
     )
   }
 
   // 视频不存在
   if (!videoDetail) {
     return (
-      <PageLayout>
+      <Layout showCategorySidebar={true}>
         <div className="text-center py-16">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             视频不存在
@@ -180,12 +180,12 @@ export const WatchPage = () => {
             返回首页
           </button>
         </div>
-      </PageLayout>
+      </Layout>
     )
   }
 
   return (
-    <PageLayout showFooter={false}>
+    <Layout showCategorySidebar={true} showFooter={false}>
       {/* VIP福利宣传横幅 - 条件显示和动画 */}
       {showVipBanner && (
         <div className={`relative bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl p-4 mb-6 shadow-xl transform transition-all duration-500 ease-out ${
@@ -425,6 +425,6 @@ export const WatchPage = () => {
           </div>
         )}
       </div>
-    </PageLayout>
+    </Layout>
   )
 }
